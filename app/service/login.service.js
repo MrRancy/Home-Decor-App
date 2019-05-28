@@ -2,8 +2,20 @@ const loginDao = require("../dao/login.dao");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys.config");
 const bcrypt = require("bcryptjs");
+const validator = require("validator");
+
 function loginUser(email, password) {
   return new Promise((resolve, reject) => {
+
+    if (!validator.isEmail(email)) {
+      reject({
+        code: 404,
+        status: false,
+        body: null,
+        message: "Invalid Email"
+      });
+    }
+
     loginDao
       .getUser(email)
       .then(usr => {
@@ -15,9 +27,6 @@ function loginUser(email, password) {
             body: null,
             message: "Email is not Registered"
           });
-
-        console.log(password);
-        console.log(usr.password);
 
         bcrypt.compare(password, usr.password).then(isMatch => {
           // Comparing the results
@@ -82,16 +91,15 @@ function logout(id) {
           body: null,
           message: "No User found with this ID"
         });
-      }
-      else {
+      } else {
         loginDao.logoutUser(id).then(data => {
           resolve({
             code: 200,
             status: false,
             body: data,
             message: "Logged out Successfully"
-          })
-        })
+          });
+        });
       }
     });
   });

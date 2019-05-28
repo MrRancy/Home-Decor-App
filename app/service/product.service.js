@@ -1,5 +1,6 @@
 const productDao = require("../dao/product.dao");
 const Fuse = require("fuse.js");
+const validator = require("validator");
 
 function getAll() {
   return new Promise((resolve, reject) => {
@@ -87,23 +88,27 @@ function deleteById(id) {
 }
 
 function updateById(newProduct) {
-  console.log("Service Update ID");
   return new Promise((resolve, reject) => {
-    // if the product is empty then reject in the initial itself
     if (!newProduct.title) {
-      console.log("Inside Null Validator");
       reject({
         code: 404,
         status: false,
         body: null,
         message: "Product Title cannot be null"
       });
+    } else if (!validator.isNumeric(newProduct.cost)) {
+      reject({
+        code: 404,
+        status: false,
+        body: null,
+        message:
+          "Cost can only contain numbers from 0 - 9/ Cannot contain characters"
+      });
     }
     productDao
-      .getProductByTitle(newProduct.title) // Check whether product exist or not
+      .getProductByTitle(newProduct.title)
       .then(response => {
         if (!response) {
-          // If product does not exist reject the product
           reject({
             code: 200,
             status: true,
@@ -143,6 +148,14 @@ function save(product) {
         body: null,
         message: "Product cannot be null"
       });
+    } else if (!validator.isNumeric(newProduct.cost)) {
+      reject({
+        code: 404,
+        status: false,
+        body: null,
+        message:
+          "Cost can only contain numbers from 0 - 9/ Cannot contain characters"
+      });
     } else {
       productDao.saveProduct(product).then(response => {
         resolve({
@@ -165,6 +178,13 @@ function sortProductsOnCost(sort) {
           status: true,
           body: null,
           message: "No Products Found"
+        });
+      } else if (!validator.isNumeric(sort)) {
+        reject({
+          code: 400,
+          status: true,
+          body: null,
+          message: "Can only be numeric; Either 1 or 0"
         });
       } else if (data.length == 1) {
         resolve({
@@ -204,6 +224,13 @@ function sortProductsOnTitle(sort) {
           status: true,
           body: null,
           message: "No Products Found"
+        });
+      } else if (!validator.isNumeric(sort)) {
+        reject({
+          code: 400,
+          status: true,
+          body: null,
+          message: "Can only be numeric; Either 1 or 0"
         });
       } else if (data.length == 1) {
         resolve({

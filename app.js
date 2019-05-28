@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const auth = require("./app/middleware/auth");
+
 const {
   globalRoutes
 } = require("./app/route/globalrouter");
@@ -34,6 +36,9 @@ app.use(passport.initialize());
 
 // Passport config
 require("./app/config/passport.config")(passport);
+
+// Auth config
+// app.use(auth.authorization);
 
 // Routes
 app.use("/api", globalRoutes);

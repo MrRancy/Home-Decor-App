@@ -1,6 +1,7 @@
 // Adding the Required Dependencies
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 
 //! Login Controller
 const login = require("../controller/login.controller");
@@ -24,9 +25,9 @@ router.put("/user/logout/:id", login.userLogout);
 //? Product Routes (9)
 router.get("/products/get/all", product.getProducts);
 router.get("/products/get", product.getProductById);
-router.delete("/products/delete/:id", product.deleteProductById);
-router.put("/products/update", product.updateProductById);
-router.post("/products/save", product.saveProduct);
+router.delete("/products/delete/:id", auth.adminAuthorization, product.deleteProductById); // Admin Auth Enabled
+router.put("/products/update", auth.adminAuthorization, product.updateProductById); // Admin Auth Enabled
+router.post("/products/save", auth.adminAuthorization, product.saveProduct); // Admin Auth Enabled
 router.get("/products/get/sort/cost/:number", product.sortBasedOnCost);
 router.get("/products/get/sort/title/:title", product.sortBasedOnTitle);
 router.get("/get/products/:category", product.searchBasedOnCategory);
