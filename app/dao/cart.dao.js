@@ -5,7 +5,7 @@ function save(items) {
 }
 
 function getItems(id) {
-    return Cart.findOne({userId : id})
+    return Cart.find({userId : id});
 }
 
 module.exports = {

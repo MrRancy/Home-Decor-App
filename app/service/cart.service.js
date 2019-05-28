@@ -21,7 +21,7 @@ function insertItems(items) {
         });
       })
       .catch(err => {
-        resolve({
+        reject({
           code: 400,
           status: false,
           body: err,
@@ -41,23 +41,29 @@ function getHistory(id) {
         message: "ID cannot be null"
       });
     }
+
+    console.log("ID : " + id);
     cartDao
       .getItems(id)
       .then(data => {
+        console.log("DATA : " + data); // Printing Data
         if (!data) {
+          console.log("In IF Block"); // Flag for IF Block
           reject({
-            code: 400,
+            code: 404,
             status: false,
             body: null,
-            message: "User with Id : " + id + " has no history"
+            message: "User with Id : " + id + " has no Purchase history"
+          });
+        } else{
+          console.log("In ELSE Block"); // Flag for Else Block
+          resolve ({
+            code: 200,
+            status: true,
+            body: data,
+            message: "Total Items purchased are " + data.length
           });
         }
-        resolve({
-          code: 200,
-          status: true,
-          body: data,
-          message: "Total Items purchased are " + data.length()
-        });
       })
       .catch(err => {
         reject({

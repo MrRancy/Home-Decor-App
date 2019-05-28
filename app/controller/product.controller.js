@@ -175,25 +175,48 @@ function sortBasedOnTitle(req, res) {
 
 //! (http://localhost:1000/api/get/products/:category)
 function searchBasedOnCategory(req, res) {
-    console.log("INFO : Sort All Products Based on Title API");
-  
-    productService
-      .searchByProductCategory(req.params.category)
-      .then(output => {
-        res.status(output.code).json({
-          status: output.status,
-          body: output.body,
-          message: output.message
-        });
-      })
-      .catch(err => {
-        res.status(err.code).json({
-          status: err.status,
-          body: err.body,
-          message: err.message
-        });
+  console.log("INFO : Sort All Products Based on Title API");
+
+  productService
+    .searchByProductCategory(req.params.category)
+    .then(output => {
+      res.status(output.code).json({
+        status: output.status,
+        body: output.body,
+        message: output.message
       });
-  }
+    })
+    .catch(err => {
+      res.status(err.code).json({
+        status: err.status,
+        body: err.body,
+        message: err.message
+      });
+    });
+}
+
+//! (http://localhost:1000/api/get/products/search/:search)
+function searchBasedOnTitle(req, res) {
+  console.log("INFO : Search Products Based on Title API");
+  console.log("QUERY = "+req.params.search);
+
+  productService
+    .searchByTitle(req.params.search)
+    .then(output => {
+      res.status(output.code).json({
+        status: output.status,
+        body: output.body,
+        message: output.message
+      });
+    })
+    .catch(err => {
+      res.status(err.code).json({
+        status: err.status,
+        body: err.body,
+        message: err.message
+      });
+    });
+}
 
 module.exports = {
   getProducts,
@@ -203,5 +226,6 @@ module.exports = {
   deleteProductById,
   sortBasedOnCost,
   sortBasedOnTitle,
-  searchBasedOnCategory
+  searchBasedOnCategory,
+  searchBasedOnTitle
 };

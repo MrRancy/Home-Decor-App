@@ -1,4 +1,5 @@
 const productDao = require("../dao/product.dao");
+const Fuse = require("fuse.js");
 
 function getAll() {
   return new Promise((resolve, reject) => {
@@ -276,6 +277,51 @@ function searchByProductCategory(category) {
   });
 }
 
+function searchByTitle(title) {
+  return new Promise((resolve, reject) => {
+    var options = {
+      shouldSort: true,
+      findAllMatches: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 2,
+      keys: ["title"]
+    };
+
+    if (!title) {
+      reject({
+        code: 404,
+        status: true,
+        body: null,
+        message: "Title cannot be null"
+      });
+    }
+
+    productDao.getAllProducts().then(list => {
+      var fuse = new Fuse(list, options);
+      var result = fuse.search(title);
+
+      if (!result) {
+        reject({
+          code: 404,
+          status: true,
+          body: null,
+          message: "No Result Found"
+        });
+      } else {
+        resolve({
+          code: 200,
+          status: true,
+          body: result,
+          message: "Data Fetched"
+        });
+      }
+    });
+  });
+}
+
 module.exports = {
   getAll,
   getById,
@@ -284,5 +330,6 @@ module.exports = {
   save,
   sortProductsOnCost,
   sortProductsOnTitle,
-  searchByProductCategory
+  searchByProductCategory,
+  searchByTitle
 };

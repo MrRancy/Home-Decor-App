@@ -18,6 +18,7 @@ The REST API's are as follows :
 [GET] http://localhost:1000/api/products/get/sort/cost/:number
 [GET] http://localhost:1000/api/products/get/sort/title/:title
 [GET] http://localhost:1000/api/get/products/:category
+[GET] http://localhost:1000/api/get/products/:search
 
 ** PRODUCT PURCHASE AND HISOTRY API's **
 [POST] http://localhost:1000/api/cart/products/buy
@@ -36,4 +37,5 @@ MONGOOSE,
 PASSPORT,
 PASSPORT-JWT,
 BCRYPTjs
-JSONWEBTOKEN(JWT)
+JSONWEBTOKEN(JWT),
+FUSE.JS

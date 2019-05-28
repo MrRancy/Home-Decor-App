@@ -21,7 +21,7 @@ router.post("/user/register", register.userRegister);
 router.post("/user/login", login.userLogin);
 router.put("/user/logout/:id", login.userLogout);
 
-//? Product Routes (8)
+//? Product Routes (9)
 router.get("/products/get/all", product.getProducts);
 router.get("/products/get", product.getProductById);
 router.delete("/products/delete/:id", product.deleteProductById);
@@ -30,6 +30,7 @@ router.post("/products/save", product.saveProduct);
 router.get("/products/get/sort/cost/:number", product.sortBasedOnCost);
 router.get("/products/get/sort/title/:title", product.sortBasedOnTitle);
 router.get("/get/products/:category", product.searchBasedOnCategory);
+router.get("/get/products/search/:search", product.searchBasedOnTitle);
 
 //? Cart Routes (2)
 router.post("/cart/products/buy", cart.buyThings);
