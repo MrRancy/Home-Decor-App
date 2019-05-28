@@ -1,0 +1,1 @@
+This app is all about the Home Decor
