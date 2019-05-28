@@ -1,5 +1,12 @@
 NODEJS Based Home Decor Backed application 
 
+To Run this app follow these steps :
+1) Run the mongoDB server in your local instance
+2) do " npm install "
+3) run using the command "node app.js"
+          (or)
+   do " npm install nodemon -g " and then "nodemon" to run the server
+
 The REST API's are as follows : 
 
 ** USER REGISTRATION API's **                              
