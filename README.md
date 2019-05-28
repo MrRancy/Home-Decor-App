@@ -1,4 +1,4 @@
-NODEJS Based Home Decor Backed application 
+NODEJS Based Home Decor Backend application 
 
 To Run this app follow these steps :
 1) Run the mongoDB server in your local instance
