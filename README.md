@@ -7,11 +7,11 @@ The REST API's are as follows :
 
 ** USER LOGIN/LOGOUT API's **                             
 [POST] http://localhost:1000/api/user/login                               
-[PUT] http://localhost:1000/api/user/logout/:<Give ID Here>
+[PUT] http://localhost:1000/api/user/logout/:id
 
 ** PRODUCT CRUD WITH SEARCH AND SORT API's **                                  
 [GET] http://localhost:1000/api/products/get/all                                   
-[GET] http://localhost:1000/api/products/get/?productId=<Give ID Here>                    
+[GET] http://localhost:1000/api/products/get/?productId=id                 
 [DELETE] http://localhost:1000/api/products/delete/:id                              
 [PUT] http://localhost:1000/api/products/update                               
 [POST] http://localhost:1000/api/products/save                           
